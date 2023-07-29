@@ -2,10 +2,8 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
 
     <persistence-unit name="jpabook">
-        <class>me.oopty.chapter4.Member</class>
-        <class>me.oopty.chapter4.MemberV2</class>
-        <class>me.oopty.chapter4.MemberV3</class>
-        <class>me.oopty.chapter4.MemberV4</class>
+        <class>me.oopty.chapter5.manytoone.Member</class>
+        <class>me.oopty.chapter5.manytoone.Team</class>
 
         <properties>
 

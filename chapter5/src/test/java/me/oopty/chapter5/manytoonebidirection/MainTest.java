@@ -1,13 +1,14 @@
-package me.oopty.chapter5;
+package me.oopty.chapter5.manytoonebidirection;
 
-import org.assertj.core.api.Assertions;
+import me.oopty.chapter5.manytoone.Member;
+import me.oopty.chapter5.manytoone.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.*;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Date;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import java.util.function.Consumer;
 
 public class MainTest {
