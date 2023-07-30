@@ -1,22 +1,20 @@
-package me.oopty.chapter7.identifyingrelation.embeddedid;
+package me.oopty.chapter7.identifyingrelation.case3;
 
 import javax.persistence.*;
 
-@Entity(name = "CHILD2")
-@Table(name = "CHILD2")
+@Entity(name = "CHILD5")
+@Table(name = "CHILD5")
 public class Child {
 
     @Id
     @Column(name = "CHILD_ID")
     private String id;
 
-
     @ManyToOne
-    @JoinColumns(value = {
-            @JoinColumn(name = "PARENT_ID1", referencedColumnName = "PARENT_ID1"),
-            @JoinColumn(name = "PARENT_ID2", referencedColumnName = "PARENT_ID2")}
-    )
+    @JoinColumn(name="PARENT_ID")
     private Parent parent;
+
+    private String name;
 
     public String getId() {
         return id;
@@ -32,5 +30,13 @@ public class Child {
 
     public void setParent(Parent parent) {
         this.parent = parent;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

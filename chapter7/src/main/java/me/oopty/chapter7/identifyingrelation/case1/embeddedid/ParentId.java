@@ -1,4 +1,4 @@
-package me.oopty.chapter7.identifyingrelation.embeddedid;
+package me.oopty.chapter7.identifyingrelation.case1.embeddedid;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

@@ -1,4 +1,4 @@
-package me.oopty.chapter7.identifyingrelation.idclass;
+package me.oopty.chapter7.identifyingrelation.case1.idclass;
 
 import java.io.Serializable;
 import java.util.Objects;

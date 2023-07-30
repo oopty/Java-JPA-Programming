@@ -1,8 +1,5 @@
-package me.oopty.chapter7.mappedsuperclass.embeddedid;
+package me.oopty.chapter7.identifyingrelation.case1.idclass;
 
-import me.oopty.chapter7.identifyingrelation.embeddedid.Child;
-import me.oopty.chapter7.identifyingrelation.embeddedid.Parent;
-import me.oopty.chapter7.identifyingrelation.embeddedid.ParentId;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +10,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.function.Consumer;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 public class MainTest {
 
@@ -27,12 +24,9 @@ public class MainTest {
     @Test
     void testIdClass() {
         doTransaction(em -> {
-            ParentId parentId = new ParentId();
-            parentId.setParentId1("p1");
-            parentId.setParentId2("p2");
-
             Parent parent = new Parent();
-            parent.setParentId(parentId);
+            parent.setParentId1("p1");
+            parent.setParentId2("p2");
             parent.setName("oopty");
 
             Child child = new Child();
@@ -42,8 +36,8 @@ public class MainTest {
             em.persist(parent);
             em.persist(child);
             /*
-             insert into PARENT2 (name, PARENT_ID1, PARENT_ID2) values (?, ?, ?)
-             insert into CHILD2 (PARENT_ID1, PARENT_ID2, CHILD_ID) values (?, ?, ?)
+             insert into Parent (name, PARENT_ID1, PARENT_ID2) values (?, ?, ?)
+             insert into Child (PARENT_ID1, PARENT_ID2, CHILD_ID) values (?, ?, ?)
              */
         });
 
@@ -57,11 +51,11 @@ public class MainTest {
 
             /*
              select
-                parent0_.PARENT_ID1 as parent_i1_13_0_,
-                parent0_.PARENT_ID2 as parent_i2_13_0_,
-                parent0_.name as name3_13_0_
+                parent0_.PARENT_ID1 as parent_i1_10_0_,
+                parent0_.PARENT_ID2 as parent_i2_10_0_,
+                parent0_.name as name3_10_0_
             from
-                PARENT2 parent0_
+                Parent parent0_
             where
                 parent0_.PARENT_ID1=?
                 and parent0_.PARENT_ID2=?
@@ -74,16 +68,16 @@ public class MainTest {
 
             /*
              select
-                child0_.CHILD_ID as child_id1_5_0_,
-                child0_.PARENT_ID1 as parent_i2_5_0_,
-                child0_.PARENT_ID2 as parent_i3_5_0_,
-                parent1_.PARENT_ID1 as parent_i1_13_1_,
-                parent1_.PARENT_ID2 as parent_i2_13_1_,
-                parent1_.name as name3_13_1_
+                child0_.CHILD_ID as child_id1_4_0_,
+                child0_.PARENT_ID1 as parent_i2_4_0_,
+                child0_.PARENT_ID2 as parent_i3_4_0_,
+                parent1_.PARENT_ID1 as parent_i1_11_1_,
+                parent1_.PARENT_ID2 as parent_i2_11_1_,
+                parent1_.name as name3_11_1_
             from
-                CHILD2 child0_
+                Child child0_
             left outer join
-                PARENT2 parent1_
+                Parent parent1_
                     on child0_.PARENT_ID1=parent1_.PARENT_ID1
                     and child0_.PARENT_ID2=parent1_.PARENT_ID2
             where

@@ -21,11 +21,31 @@
         <class>me.oopty.chapter7.mappedsuperclass.Member</class>
         <class>me.oopty.chapter7.mappedsuperclass.Seller</class>
 
-        <class>me.oopty.chapter7.identifyingrelation.idclass.Parent</class>
-        <class>me.oopty.chapter7.identifyingrelation.idclass.Child</class>
+        <class>me.oopty.chapter7.identifyingrelation.case1.idclass.Parent</class>
+        <class>me.oopty.chapter7.identifyingrelation.case1.idclass.Child</class>
 
-        <class>me.oopty.chapter7.identifyingrelation.embeddedid.Parent</class>
-        <class>me.oopty.chapter7.identifyingrelation.embeddedid.Child</class>
+        <class>me.oopty.chapter7.identifyingrelation.case1.embeddedid.Parent</class>
+        <class>me.oopty.chapter7.identifyingrelation.case1.embeddedid.Child</class>
+
+        <class>me.oopty.chapter7.identifyingrelation.case2.idclass.Parent</class>
+        <class>me.oopty.chapter7.identifyingrelation.case2.idclass.Child</class>
+        <class>me.oopty.chapter7.identifyingrelation.case2.idclass.GrandChild</class>
+
+        <class>me.oopty.chapter7.identifyingrelation.case2.embeddedid.Parent</class>
+        <class>me.oopty.chapter7.identifyingrelation.case2.embeddedid.Child</class>
+        <class>me.oopty.chapter7.identifyingrelation.case2.embeddedid.GrandChild</class>
+
+        <class>me.oopty.chapter7.identifyingrelation.case3.Parent</class>
+        <class>me.oopty.chapter7.identifyingrelation.case3.Child</class>
+        <class>me.oopty.chapter7.identifyingrelation.case3.GrandChild</class>
+
+        <class>me.oopty.chapter7.identifyingrelation.case4.Board</class>
+        <class>me.oopty.chapter7.identifyingrelation.case4.BoardDetail</class>
+
+        <class>me.oopty.chapter7.jointable.case1.Parent</class>
+        <class>me.oopty.chapter7.jointable.case1.Child</class>
+
+        <class>me.oopty.chapter7.secondarytable.Board</class>
 
         <properties>
 

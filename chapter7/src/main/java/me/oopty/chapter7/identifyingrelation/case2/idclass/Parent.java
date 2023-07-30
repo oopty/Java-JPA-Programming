@@ -1,21 +1,21 @@
-package me.oopty.chapter7.identifyingrelation.embeddedid;
+package me.oopty.chapter7.identifyingrelation.case2.idclass;
 
 import javax.persistence.*;
 
-@Entity(name = "PARENT2")
-@Table(name = "PARENT2")
+@Entity(name = "PARENT3")
+@Table(name = "PARENT3")
 public class Parent {
-    @EmbeddedId
-    ParentId parentId;
+    @Id
+    @Column(name = "PARENT_ID")
+    private String parentId;
 
     private String name;
 
-
-    public ParentId getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(ParentId parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
