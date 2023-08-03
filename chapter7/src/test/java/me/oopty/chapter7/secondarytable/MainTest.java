@@ -1,7 +1,5 @@
 package me.oopty.chapter7.secondarytable;
 
-import me.oopty.chapter7.jointable.case1.Child;
-import me.oopty.chapter7.jointable.case1.Parent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

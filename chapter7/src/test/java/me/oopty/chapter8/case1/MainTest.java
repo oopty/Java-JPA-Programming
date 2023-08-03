@@ -1,4 +1,4 @@
-package me.oopty.chapter7.jointable.case1;
+package me.oopty.chapter8.case1;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

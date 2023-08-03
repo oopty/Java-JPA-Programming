@@ -42,8 +42,8 @@
         <class>me.oopty.chapter7.identifyingrelation.case4.Board</class>
         <class>me.oopty.chapter7.identifyingrelation.case4.BoardDetail</class>
 
-        <class>me.oopty.chapter7.jointable.case1.Parent</class>
-        <class>me.oopty.chapter7.jointable.case1.Child</class>
+        <class>me.oopty.chapter8.case1.Parent</class>
+        <class>me.oopty.chapter8.case1.Child</class>
 
         <class>me.oopty.chapter7.secondarytable.Board</class>
 
