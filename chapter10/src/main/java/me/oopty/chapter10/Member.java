@@ -13,6 +13,14 @@ import java.util.List;
                 name="Member.count",
                 query="select count(m) from Member m")
 })
+@SqlResultSetMapping(
+        name = "memberWithOrderCount",
+        entities = @EntityResult(entityClass = Member.class),
+        columns = @ColumnResult(name = "ORDER_COUNT"))
+@NamedNativeQuery(
+        name="Member.memberWithOrderCount",
+        query="select m.id, m.username, m.age, m.TEAM_ID, OM.ORDER_COUNT from member m left outer join (select o.MEMBER_ID as id, count(*) AS ORDER_COUNT from orders o group by o.MEMBER_ID) OM on m.id = OM.id",
+        resultSetMapping = "memberWithOrderCount")
 public class Member {
     @Id @GeneratedValue
     private Long id;
