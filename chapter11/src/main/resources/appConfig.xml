@@ -6,7 +6,7 @@
 
     <tx:annotation-driven/>
 
-    <context:component-scan base-package="jpabook.jpashop.service, jpabook.jpashop.repository"/>
+    <context:component-scan base-package="me.oopty.chapter11.service, me.oopty.chapter11.repository"/>
 
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
         <property name="driverClassName" value="org.h2.Driver"/>
@@ -24,7 +24,7 @@
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="jpabook.jpashop.domain"/> <!-- @Entity 탐색 시작 위치 -->
+        <property name="packagesToScan" value="me.oopty.chapter11.domain"/> <!-- @Entity 탐색 시작 위치 -->
         <property name="jpaVendorAdapter">
             <!-- 하이버네이트 구현체 사용 -->
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
