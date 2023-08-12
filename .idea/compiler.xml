@@ -20,13 +20,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ch12-jpa-shop" />
         <module name="ch11-jpa-shop" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17">
       <module name="ch11-jpa-shop (1)" target="1.7" />
       <module name="ch11-jpa-shop (2)" target="1.6" />
-      <module name="chapter11" target="17" />
+      <module name="chapter11" target="1.5" />
+      <module name="chapter12" target="1.5" />
       <module name="test" target="17" />
       <module name="untitled" target="17" />
     </bytecodeTargetLevel>
