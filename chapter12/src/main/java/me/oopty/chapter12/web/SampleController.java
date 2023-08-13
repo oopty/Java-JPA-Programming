@@ -4,19 +4,12 @@ import me.oopty.chapter12.domain.Sample;
 import me.oopty.chapter12.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.config.SpringDataWebConfiguration;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
 
 @RestController
 public class SampleController {
     @Autowired
     private SampleService sampleService;
-
-    @Autowired
-    private SpringDataWebConfiguration springDataWebConfiguration;
 
     @RequestMapping(value = "/samples/{id}", method = RequestMethod.GET)
     public Sample get(@PathVariable("id") Long sampleId) {
@@ -24,13 +17,15 @@ public class SampleController {
     }
 
     @RequestMapping(value = "/samples", method = RequestMethod.POST)
-    public Sample create(Sample sample) {
-        return sampleService.create(sample);
+    public String create(Sample sample) {
+        sampleService.create(sample);
+        return "ok";
     }
 
     @RequestMapping(value = "/samples", method = RequestMethod.PUT)
-    public Sample update(Sample sample) {
-        return sampleService.update(sample);
+    public String update(Sample sample) {
+        sampleService.update(sample);
+        return "ok";
     }
 
     @RequestMapping(value = "/samples/{id}", method = RequestMethod.DELETE)
@@ -45,7 +40,6 @@ public class SampleController {
     // DomainClassConverter
     @RequestMapping(value = "/test")
     public void domainConverter(@RequestParam("id") Sample sample) {
-        System.out.println(springDataWebConfiguration);
         System.out.println(sample);
     }
     // PageableHandlerMethodArgumentResolver

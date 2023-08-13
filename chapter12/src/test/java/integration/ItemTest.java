@@ -91,4 +91,13 @@ public class ItemTest {
         Sample result = sampleRepository.findByName2("sample1");
         assertNotNull(result);
     }
+
+    @Test
+    public void 이름으로_찾기3() {
+        Sample sample = new Sample( "sample1");
+        em.persist(sample);
+
+        Sample result = sampleRepository.contains("samp");
+        assertNotNull(result);
+    }
 }
