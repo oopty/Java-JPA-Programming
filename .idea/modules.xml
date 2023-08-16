@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/chapter12/ch12-springdata-shop.iml" filepath="$PROJECT_DIR$/chapter12/ch12-springdata-shop.iml" />
       <module fileurl="file://$PROJECT_DIR$/chapter13/ch13-spring-osiv.iml" filepath="$PROJECT_DIR$/chapter13/ch13-spring-osiv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chapter15/ch15-spring.iml" filepath="$PROJECT_DIR$/chapter15/ch15-spring.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/chapter10/jpabook-study.chapter10.main.iml" filepath="$PROJECT_DIR$/.idea/modules/chapter10/jpabook-study.chapter10.main.iml" />
     </modules>
   </component>

@@ -21,6 +21,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ch12-springdata-shop" />
+        <module name="ch15-spring" />
         <module name="ch13-spring-osiv" />
         <module name="ch11-jpa-shop" />
       </profile>
@@ -35,8 +36,11 @@
       <module name="chapter11" target="1.5" />
       <module name="chapter12" target="1.5" />
       <module name="chapter13" target="1.8" />
+      <module name="chapter15" target="1.8" />
+      <module name="jpabook-study.chapter15.main" target="1.8" />
+      <module name="jpabook-study.chapter15.test" target="1.8" />
       <module name="test" target="1.8" />
-      <module name="untitled" target="17" />
+      <module name="untitled" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
