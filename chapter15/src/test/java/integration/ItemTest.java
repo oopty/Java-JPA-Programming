@@ -8,6 +8,7 @@ import me.oopty.chapter15.service.SampleService;
 import me.oopty.chapter15.visitor.PrintVisitor;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ThrowableAssert;
+import org.hibernate.*;
 import org.hibernate.proxy.HibernateProxy;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.Assert.*;
@@ -36,6 +41,9 @@ public class ItemTest {
 
     @PersistenceContext
     EntityManager em;
+
+    @Autowired
+    EntityManagerFactory emf;
 
     @Test
     public void testEntityNotFoundException() {
@@ -167,4 +175,123 @@ public class ItemTest {
      *  - 트랜젝션을 만들지 않으면 성능 좋아짐 @Transactional(propagation = Propagation.NOT_SUPPORTED)
      *  - 스칼라 타입으로 조회하거나, 읽기 전용 쿼리 힌트를 사용하면 스냅샷을 만들지 않아 메모리를 아낄 수 있음 `org.hibernate.readOnly`
      */
+
+    @Test
+    public void insertBatch() {
+        for(int i = 0; i < 100000; i++) {
+            Sample sample = new Sample("sample");
+            em.persist(sample);
+
+            if( i % 100 == 0) {
+                em.flush();
+                em.clear();
+            }
+        }
+    }
+
+    @Test
+    public void updateBatchByPaging() {
+        for(int i = 0; i < 100000; i++) {
+            Sample sample = new Sample("sample");
+            em.persist(sample);
+
+            if( i % 100 == 0) {
+                em.flush();
+                em.clear();
+            }
+        }
+
+        int pageSize = 100;
+        for(int i = 0; i < 10; i++) {
+            List<Sample> samples = em.createQuery("select s from Sample s", Sample.class)
+                    .setFirstResult(i * pageSize)
+                    .setMaxResults(pageSize)
+                    .getResultList();
+
+            for(Sample sample : samples) {
+                sample.setName("sample2");
+            }
+
+            em.flush();
+            em.clear();
+        }
+    }
+
+    @Test
+    public void updateBatchByCursor() {
+        for(int i = 0; i < 100000; i++) {
+            Sample sample = new Sample("sample");
+            em.persist(sample);
+
+            if( i % 100 == 0) {
+                em.flush();
+                em.clear();
+            }
+        }
+
+        Session session = em.unwrap(Session.class);
+
+        ScrollableResults scroll = session.createQuery("select s from Sample s")
+                .setCacheMode(CacheMode.IGNORE)
+                .scroll(ScrollMode.FORWARD_ONLY);
+
+        int cnt = 0;
+        while(scroll.next()) {
+            Sample sample = (Sample) scroll.get(0);
+            sample.setName("sample2");
+
+            cnt++;
+
+            if(cnt % 100 == 0) {
+                session.flush();
+                session.clear();
+            }
+        }
+    }
+
+    @Test
+    public void updateBatchByStatelessSession() {
+        for(int i = 0; i < 100000; i++) {
+            Sample sample = new Sample("sample");
+            em.persist(sample);
+
+            if( i % 100 == 0) {
+                em.flush();
+                em.clear();
+            }
+        }
+
+        SessionFactory sessionFactory = emf.unwrap(SessionFactory.class);
+
+        StatelessSession session = sessionFactory.openStatelessSession();
+        ScrollableResults scroll = session.createQuery("select s from Sample s").scroll();
+
+        while(scroll.next()) {
+            Sample sample = (Sample) scroll.get(0);
+            sample.setName("sample2");
+
+            session.update(sample);
+        }
+    }
+
+    @Test
+    public void testSqlQuery() {
+        for(int i = 0; i < 100000; i++) {
+            Sample sample = new Sample("sample");
+            em.persist(sample);
+
+            if( i % 100 == 0) {
+                em.flush();
+                em.clear();
+            }
+        }
+
+        Session session = em.unwrap(Session.class);
+
+        List<Sample> samples = session.createQuery("select s from Sample s")
+                .addQueryHint("FULL (SAMPLE)")
+                .list();
+
+        assertThat(samples.size()).isEqualTo(100000);
+    }
 }
