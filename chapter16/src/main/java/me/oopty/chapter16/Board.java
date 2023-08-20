@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Cacheable
 public class Board {
     @Id @GeneratedValue
     private Long id;

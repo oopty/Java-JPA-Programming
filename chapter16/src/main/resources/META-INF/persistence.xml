@@ -4,8 +4,13 @@
     <persistence-unit name="jpabook">
         <class>me.oopty.chapter16.Board</class>
         <class>me.oopty.chapter16.Attachement</class>
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 
         <properties>
+            <property name="hibernate.cache.use_second_level_cache" value="true"/>
+            <property name="hibernate.cache.use_query_cache"  value="true"/>
+            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
+            <property name="hibernate.generate_statistics" value="true"/>
 
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>

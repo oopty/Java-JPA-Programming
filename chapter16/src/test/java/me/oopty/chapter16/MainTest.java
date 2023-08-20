@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -180,6 +181,81 @@ public class MainTest {
 
         Throwable exceptionFrom = handler.getExceptionFrom(transaction2);
         assertThat(exceptionFrom).isInstanceOf(PessimisticLockException.class);
+    }
+
+    @Test
+    void testCache() {
+        doTransaction(em -> {
+            Board board = new Board("title1");
+            em.persist(board);
+        });
+
+        // entity manager에 전역으로 적용
+        doTransaction(em -> {
+            em.setProperty("javax.persistence.retrieveMode", CacheRetrieveMode.USE);
+            em.setProperty("javax.persistence.storeMode", CacheStoreMode.USE);
+
+            em.find(Board.class, 1L);
+        });
+
+        // find 할 때 적용
+        doTransaction(em -> {
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("javax.persistence.retrieveMode", CacheRetrieveMode.USE);
+            properties.put("javax.persistence.storeMode", CacheStoreMode.USE);
+
+            em.find(Board.class, 1L, properties);
+        });
+
+        // refresh할 때 적용
+        doTransaction(em -> {
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("javax.persistence.retrieveMode", CacheRetrieveMode.USE);
+            properties.put("javax.persistence.storeMode", CacheStoreMode.USE);
+
+            Board board = em.find(Board.class, 1L);
+            em.refresh(board, properties);
+        });
+        Cache cache = emf.getCache();
+        assertThat(cache.contains(Board.class, 1L)).isTrue();
+    }
+
+    @Test
+    void testQueryCache() {
+        doTransaction(em -> {
+            Board board = new Board("title1");
+            em.persist(board);
+        });
+
+        doTransaction(em -> {
+            em.createQuery("select b from Board b", Board.class)
+                    .setHint("org.hibernate.cacheable", true)
+                    .getResultList();
+            /*
+             * select
+                    board0_.id as id1_1_,
+                    board0_.title as title2_1_,
+                    board0_.version as version3_1_
+                from
+                    board board0_
+             */
+        });
+
+        doTransaction(em -> {
+            em.createQuery("select b from Board b", Board.class)
+                    .setHint("org.hibernate.cacheable", true)
+                    .getResultList();
+            // 쿼리 실행 X
+        });
+
+        /*
+         * 쿼리 캐시와 컬렉션 캐시의 주의사항
+         * 쿼리 캐시와 컬렉션 캐시는 결과집합의 식별자 값만 캐시를 한다.
+         * 따라서 캐시를 조회(히트)하면 각 식별자를 가지고 엔티티 캐시에서 조회하고 없다면 하나씩 DB에 쿼리를 날린다.
+         * 결과집합이 100건이면 100번 sql을 조회하는 상황이 되니 성능이 나빠진다.
+         * 따라서 컬렉션 캐시나 쿼리 캐시를 활용하고자 하면 대상 엔티티도 캐시를 해야한다.
+         */
+
     }
 
     private static void sleep(int millis) {

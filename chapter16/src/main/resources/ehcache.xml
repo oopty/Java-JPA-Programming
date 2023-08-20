@@ -1,0 +1,23 @@
+<ehcache>
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="1200"
+            timeToLiveSeconds="1200"
+            diskExpiryThreadIntervalSeconds="1200"
+            memoryStoreEvictionPolicy="LRU"
+    />
+    <cache
+            name="me.oopty.chapter16.Board"
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="600"
+            timeToLiveSeconds="600"
+            overflowToDisk="false"
+    />
+    <cache
+            name="org.hibernate.cache.api.UpdateTimestampsCache"
+            maxElementsInMemory="10000"
+            eternal="true"
+    />
+</ehcache>
